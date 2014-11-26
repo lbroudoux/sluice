@@ -28,9 +28,43 @@
          <timezone>+1</timezone>
       </developer>
    </developers>
+   <scm>
+      <url>scm:git@github.com:lbroudoux/sluice.git</url>
+      <connection>scm:git:git@github.com:lbroudoux/sluice.git</connection>
+      <developerConnection>scm:git:git@github.com:lbroudoux/sluice.git</developerConnection>
+      <tag>HEAD</tag>
+   </scm>
+   <issueManagement>
+      <system>GitHub</system>
+      <url>https://github.com/lbroudoux/sluice/issues/</url>
+   </issueManagement>
 
    <modules>
       <module>server</module>
       <module>admin-ui</module>
    </modules>
+
+   <profiles>
+      <profile>
+         <id>release</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-gpg-plugin</artifactId>
+                  <version>1.4</version>
+                  <executions>
+                     <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                           <goal>sign</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
 </project>
