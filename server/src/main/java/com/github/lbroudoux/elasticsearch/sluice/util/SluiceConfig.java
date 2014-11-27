@@ -34,6 +34,8 @@ public class SluiceConfig {
 
    private static final String RIVER_LIST_PROP = "sluice.rivers";
 
+   private static final String RIVER_PROPS_PREFIX = "sluice.river";
+
    /**
     * Get the list of supported rivers.
     * @return A list of river name.
@@ -45,6 +47,39 @@ public class SluiceConfig {
       }
       String riverList = properties.getProperty(RIVER_LIST_PROP);
       return Arrays.asList(riverList.split(","));
+   }
+
+   public static River getRiverConfig(String river) throws ConfigurationException{
+      if (!getSupportedRivers().contains(river)){
+         return null;
+      }
+      String name = properties.getProperty(RIVER_PROPS_PREFIX + "." + river + ".name");
+      String defaultVersion = properties.getProperty(RIVER_PROPS_PREFIX + "." + river + ".defaultVersion");
+      return new River(name, defaultVersion);
+   }
+
+   /** Simple bean wrapper around river configuration. */
+   public static class River{
+      private String name;
+      private String defaultVersion;
+
+      /**
+       * Build a new river with plugin name and default version.
+       * @param name The plugin name of river
+       * @param defaultVersion The default version of river
+       */
+      private River(final String name, final String defaultVersion){
+         this.name = name;
+         this.defaultVersion = defaultVersion;
+      }
+      /** @return This river name. */
+      public String getName(){
+         return name;
+      }
+      /** @return This river default version. */
+      public String getDefaultVersion(){
+         return defaultVersion;
+      }
    }
 
    /** Load sluice.properties file. */

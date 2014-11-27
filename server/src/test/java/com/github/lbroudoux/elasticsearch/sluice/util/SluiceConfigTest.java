@@ -22,6 +22,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.github.lbroudoux.elasticsearch.sluice.util.SluiceConfig.River;
+
 import static org.junit.Assert.*;
 /**
  * This is a test case for SluiceConfig
@@ -35,5 +37,15 @@ public class SluiceConfigTest {
       assertEquals(2, rivers.size());
       assertTrue(rivers.contains("google-drive-river"));
       assertTrue(rivers.contains("amazon-s3-river"));
+   }
+
+   @Test
+   public void testGetRiverConfig() throws Exception{
+      River river = SluiceConfig.getRiverConfig("google-drive-river");
+      assertNotNull(river.getName());
+      assertNotNull(river.getDefaultVersion());
+      // Check with dumb river name.
+      river = SluiceConfig.getRiverConfig("foo-bar-river");
+      assertNull(river);
    }
 }

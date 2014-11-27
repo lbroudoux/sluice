@@ -21,6 +21,9 @@ package com.github.lbroudoux.elasticsearch.sluice.plugin;
 import org.elasticsearch.common.inject.Module;
 import org.elasticsearch.plugins.AbstractPlugin;
 import org.elasticsearch.rest.RestModule;
+
+import com.github.lbroudoux.elasticsearch.sluice.rest.InstallRiverAction;
+import com.github.lbroudoux.elasticsearch.sluice.rest.ListRiversAction;
 /**
  * Sluice plugin definition.
  * @author laurent
@@ -40,7 +43,8 @@ public class SluicePlugin extends AbstractPlugin{
    @Override
    public void processModule(Module module){
       if (module instanceof RestModule) {
-
+         ((RestModule) module).addRestAction(InstallRiverAction.class);
+         ((RestModule) module).addRestAction(ListRiversAction.class);
       }
    }
 }
