@@ -1,79 +1,105 @@
-/* Space out content a bit */
-body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+
+/* Bootstrap customizations */
+.navbar{
+  margin-bottom: 0px; 
+}
+.navbar-default{
+  background-color: #df691a;
+  border-color: #df691a;
+}
+.navbar-brand{
+  padding-top: 2px;
+  padding-left: 20px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+/* Global element customizations. */
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/SourceSansPro-Regular-webfont.eot');
+  src: url('../fonts/SourceSansPro-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/SourceSansPro-Regular-webfont.woff') format('woff'), url('../fonts/SourceSansPro-Regular-webfont.ttf') format('truetype'), url('../fonts/SourceSansPro-Regular.svg#SourceSansPro-Regular') format('svg');
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+body{
+  background-color: #faf4f1;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+/* The main area (2nd column) */
+.sluice-main-pane {
+  min-height: calc(100% - 80px);
+  overflow: hidden;
+  height: auto;
+}
+.sluice-content-pane{
+  overflow: visible;
+}
+.sluice-content-pane .sluice-content-area {
+  padding: 0 30px 30px;
+}
+.sluice-content-pane .sluice-content-area > h2 {
+  margin-bottom: 15px;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+.sluice-sidebar {
+  background-color: #4e5d6c;
+  padding-top: 0;
+  padding-right: 0 !important;
+} 
+.sluice-sidebar ul {
+  padding-left: 0;
 }
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
+.sluice-sidebar ul li {
+  margin: 40px 0 0;
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+  list-style: none;
 }
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+.sluice-sidebar ul li:first-child {
+  margin-top: 30px;
+}  
+.sluice-sidebar ul li:last-child {
+  margin-bottom: 30px;
+}  
+.sluice-sidebar ul li.active {
+  background: url(img/sidebar-active.svg) no-repeat right 22px;
 }
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
+.sluice-sidebar ul li a {
+  border: none;
+  color: #fff;
+  padding: 0;
+  opacity: 0.5;
+  font-size: 14px;
+  line-height: 1em;
 }
-.marketing p + h4 {
-  margin-top: 28px;
+.sluice-sidebar ul li a:hover, 
+    .sluice-sidebar ul li a:focus {
+  text-decoration: none;
+  opacity: 1;
+  color: #fff;
+  border-right: 0;
 }
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+.sluice-sidebar ul li.active a {
+  background-color: transparent;
+  opacity: 1;
+  background-image: none;
+} 
+.sluice-sidebar ul li a:before {
+  display: block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  font-size: 42px;
+  opacity: 1;
+  -webkit-opacity: inherit;
+  margin-bottom: 6px;
+}  
+.sluice-sidebar .fa {
+  margin-bottom: 6px;
+  display: inline;
+}
+.sluice-sidebar .fa:after {
+  content: "\a";
+  white-space: pre;
 }

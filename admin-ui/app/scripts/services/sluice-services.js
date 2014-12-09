@@ -18,29 +18,19 @@
 */
 'use strict';
 
-angular
-  .module('sluiceApp', [
-    'sluiceApp.services',
-    'sluiceApp.directives',
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController',
-        section: 'dashboard',
-        resolve: {
-          rivers: function(DashboardService) {
-            return DashboardService.listRivers();
-          }
-        }
-      })
-      .otherwise({
-        redirectTo: '/'
+var services = angular.module('sluiceApp.services', []).
+  value('version', '0.1');
+
+services.factory('DashboardService', function($http, $q) {
+  var dashService = {
+    listRivers: function() {
+      var delay = $q.defer();
+      $http.get('http://localhost:9200/_sluice/river')
+      .success(function(data, status, headers, config) {
+        delay.resolve(data);
       });
-  });
+      return delay.promise;
+    }
+  };
+  return dashService;
+});

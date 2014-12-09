@@ -1,0 +1,21 @@
+<aside class="sluice-sidebar col-md-2 fixed clearfix ng-isolate-scope">
+  <nav class="navbar navbar-vertical" role="navigation">
+    <ul>
+      <li class="{{section}}" ng-class="{active: current == 'dashboard'}" class="stats">
+        <a href="#/">
+          <i class="fa fa-tachometer fa-3x"></i>Dashboard
+        </a>
+      </li>
+      <li ng-class="{active: current == 'amazon-s3'}">
+        <a href="#/amazonS3">
+          <i class="fa fa-bitbucket fa-3x"></i>Amazon S3 Rivers
+        </a>
+      </li>
+      <li ng-class="{active: current == 'google-drive'}">
+        <a href="#/googleDrive">
+          <i class="fa fa-google fa-3x"></i>Google Drive Rivers
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

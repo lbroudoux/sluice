@@ -18,29 +18,8 @@
 */
 'use strict';
 
-angular
-  .module('sluiceApp', [
-    'sluiceApp.services',
-    'sluiceApp.directives',
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController',
-        section: 'dashboard',
-        resolve: {
-          rivers: function(DashboardService) {
-            return DashboardService.listRivers();
-          }
-        }
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+angular.module('sluiceApp')
+  .controller('GoogleDriveController', function ($rootScope, $scope, $http) {
+  
+  
   });

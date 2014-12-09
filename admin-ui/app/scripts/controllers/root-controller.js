@@ -18,29 +18,28 @@
 */
 'use strict';
 
-angular
-  .module('sluiceApp', [
-    'sluiceApp.services',
-    'sluiceApp.directives',
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController',
-        section: 'dashboard',
-        resolve: {
-          rivers: function(DashboardService) {
-            return DashboardService.listRivers();
-          }
+angular.module('sluiceApp')
+  .controller('RootController', function ($rootScope, $scope, $http) {
+  
+    $rootScope.isViewLoading = false;
+  
+    $rootScope.isProcessingData = function() {
+      return $http.pendingRequests.some(function(config) {
+        if (config.method !== 'GET') {
+          console.log(config);
+          return true;
         }
-      })
-      .otherwise({
-        redirectTo: '/'
       });
+    };
+  
+    $rootScope.$on('$routeChangeStart', function () {
+      $rootScope.isViewLoading = true;
+    });
+    $rootScope.$on('$routeChangeSuccess', function (event, routeData) {
+      $rootScope.isViewLoading = false;
+      if (routeData.$$route && routeData.$$route.section) {
+        $rootScope.section = routeData.$$route.section;
+      }
+    });
+  
   });
