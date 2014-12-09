@@ -26,7 +26,8 @@ angular
     'ngCookies',
     'ngResource',
     'ngRoute',
-    'ngSanitize'
+    'ngSanitize',
+    'frapontillo.bootstrap-switch'
   ])
   .config(function ($routeProvider) {
     $routeProvider
