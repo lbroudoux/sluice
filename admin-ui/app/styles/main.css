@@ -26,6 +26,10 @@ body{
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+input[type='range']{
+  border: 0px; 
+}
+
 /* The main area (2nd column) */
 .sluice-main-pane {
   min-height: calc(100% - 80px);

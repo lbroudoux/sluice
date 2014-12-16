@@ -23,7 +23,7 @@ var services = angular.module('sluiceApp.services', []).
 
 services.factory('DashboardService', function($http, $q) {
   var dashService = {
-    listRivers: function() {
+    availableRivers: function() {
       var delay = $q.defer();
       $http.get('http://localhost:9200/_sluice/river')
       .success(function(data, status, headers, config) {

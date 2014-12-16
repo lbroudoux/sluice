@@ -27,6 +27,7 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
+    'ui.bootstrap',
     'frapontillo.bootstrap-switch'
   ])
   .config(function ($routeProvider) {
@@ -37,7 +38,17 @@ angular
         section: 'dashboard',
         resolve: {
           rivers: function(DashboardService) {
-            return DashboardService.listRivers();
+            return DashboardService.availableRivers();
+          }
+        }
+      })
+      .when('/amazon-s3', {
+        templateUrl: 'views/amazon-s3.html',
+        controller: 'AmazonS3Controller',
+        section: 'amazon-s3',
+        resolve: {
+          rivers: function(AmazonS3Service) {
+            return AmazonS3Service.list();
           }
         }
       })
