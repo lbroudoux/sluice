@@ -107,3 +107,8 @@ input[type='range']{
   content: "\a";
   white-space: pre;
 }
+
+.panel-actions {
+  position: relative;
+  top: -35px;
+}

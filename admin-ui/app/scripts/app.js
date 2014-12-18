@@ -21,6 +21,8 @@
 angular
   .module('sluiceApp', [
     'sluiceApp.services',
+    'sluiceApp.aservices',
+    'sluiceApp.gservices',
     'sluiceApp.directives',
     'ngAnimate',
     'ngCookies',
@@ -49,6 +51,16 @@ angular
         resolve: {
           rivers: function(AmazonS3Service) {
             return AmazonS3Service.list();
+          }
+        }
+      })
+      .when('/google-drive', {
+        templateUrl: 'views/google-drive.html',
+        controller: 'GoogleDriveController',
+        section: 'google-drive',
+        resolve: {
+          rivers: function(GoogleDriveService) {
+            return GoogleDriveService.list();
           }
         }
       })

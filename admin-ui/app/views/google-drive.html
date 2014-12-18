@@ -1,0 +1,21 @@
+<div class="sluice-content-pane col-md-10 ng-scope">
+  <div class="row">
+    <div class="sluice-content-area col-md-12">
+      <h2><i class="fa fa-google"></i>  Google Drive Rivers</h2>
+      
+      <br/>
+      <div ng-repeat="river in rivers">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><span class="label label-default">{{river.id}}</span> &nbsp; {{river.name}}</h4>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-6 col-md-2">Elasticsearch mapping: <code>{{ river.index }}/{{ river.type }}</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

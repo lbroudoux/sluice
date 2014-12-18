@@ -18,8 +18,7 @@
 */
 'use strict';
 
-var services = angular.module('sluiceApp.services', []).
-  value('version', '0.1');
+var services = angular.module('sluiceApp.aservices', []);
 
 services.factory('AmazonS3Service', function($http, $q) {
   var amazonService = {
@@ -28,10 +27,15 @@ services.factory('AmazonS3Service', function($http, $q) {
       $http.get('http://localhost:9200/_river/_search?q=type:amazon-s3')
       .success(function(data, status, headers, config) {
         delay.resolve(data.hits.hits.map(function(item) {
-          console.log("Item: " + JSON.stringify(item));
+          //console.log("Item: " + JSON.stringify(item));
           var river = item._source["amazon-s3"];
+          if (item._source.index){
+            river.bulk_size = item._source.index.bulk_size;
+            river.index = item._source["index"].index;
+            river.type = item._source.index.type;
+          }
           river.id = item._type;
-          console.log("River: " + JSON.stringify(river));
+          //console.log("River: " + JSON.stringify(river));
           return river;
         }));
       });
@@ -76,6 +80,11 @@ services.factory('AmazonS3Service', function($http, $q) {
         update_rate: parseInt(river.update_rate),
         includes: river.includes,
         excludes: river.excludes
+      },
+      'index' :{
+        index: river.index,
+        type: river.type,
+        bulk_size: parseInt(river.bulk_size)
       }
     };
   }

@@ -24,6 +24,7 @@ angular.module('sluiceApp')
   $scope.rivers = rivers;
   
   $scope.addRiver = function(river) {
+    river = {update_rate: 1000 * 60 * 10, bulk_size: 2};
     var modalInstance = show(river, 'edit-amazon-s3.html');
     modalInstance.result.then(function (result) {
       var river = result.river;

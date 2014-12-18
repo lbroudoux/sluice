@@ -18,8 +18,28 @@
 */
 'use strict';
 
-angular.module('sluiceApp')
-  .controller('GoogleDriveController', function ($rootScope, $scope, $modal, rivers) {
+var services = angular.module('sluiceApp.gservices', []);
+
+services.factory('GoogleDriveService', function($http, $q) {
+  var googleService = {
+    list: function() {
+      var delay = $q.defer();
+      $http.get('http://localhost:9200/_river/_search?q=type:amazon-s3')
+      .success(function(data, status, headers, config) {
+        delay.resolve(data.hits.hits.map(function(item) {
+          var river = item._source["amazon-s3"];
+          if (item._source.index){
+            river.bulk_size = item._source.index.bulk_size;
+            river.index = item._source["index"].index;
+            river.type = item._source.index.type;
+          }
+          river.id = item._type;
+          return river;
+        }));
+      });
+      return delay.promise;
+    }
+  }
   
-  $scope.rivers = rivers;
-  });
+  return googleService;
+});
