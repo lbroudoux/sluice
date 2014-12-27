@@ -1,22 +1,41 @@
 <div class="sluice-content-pane col-md-10 ng-scope">
   <div class="row">
     <div class="sluice-content-area col-md-12">
-      <h2>Welcome to Sluice !</h2>
+      <h2>Sluice Dashboard</h2>
       
-      This is a text note.<br>
-      This is a <b>bold text note</b>.<br>
-      This is an <i>italic text note</i>.<br>
-      
-      <ul>
-        <li ng-repeat="river in rivers">
-          {{river.name}}
-        </li>
-      </ul>
       <div class="row">
         <div class="col-md-6">
-        
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h4>Available river plugins</h4>
+            </div>
+            <div class="panel-body">
+              <div class="row" ng-repeat="river in rivers">
+                <div class="col-md-6">  
+                  <h4>{{ river.name }}</h4>
+                </div>
+                <div class="col-md-6">
+                  <span class="pull-right" ng-show="{{ river.installed }}">
+                    <button class="btn btn-success" disabled>Active</button>
+                  </span>
+                  <span class="pull-right" ng-hide="{{ river.installed }}">
+                    <button class="btn btn-link" ng-click="installRiver(river)">Install</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4>Rivers stats</h4>
+            </div>
+            <div class="panel-body">
+              Coming in future release...
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

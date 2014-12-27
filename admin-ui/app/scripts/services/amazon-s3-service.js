@@ -18,7 +18,7 @@
 */
 'use strict';
 
-var services = angular.module('sluiceApp.aservices', []);
+var services = angular.module('sluiceApp.services');
 
 services.factory('AmazonS3Service', function($http, $q) {
   var amazonService = {

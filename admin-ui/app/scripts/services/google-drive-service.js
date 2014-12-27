@@ -18,16 +18,16 @@
 */
 'use strict';
 
-var services = angular.module('sluiceApp.gservices', []);
+var services = angular.module('sluiceApp.services');
 
 services.factory('GoogleDriveService', function($http, $q) {
   var googleService = {
     list: function() {
       var delay = $q.defer();
-      $http.get('http://localhost:9200/_river/_search?q=type:amazon-s3')
+      $http.get('http://localhost:9200/_river/_search?q=type:google-drive')
       .success(function(data, status, headers, config) {
         delay.resolve(data.hits.hits.map(function(item) {
-          var river = item._source["amazon-s3"];
+          var river = item._source["google-drive"];
           if (item._source.index){
             river.bulk_size = item._source.index.bulk_size;
             river.index = item._source["index"].index;
@@ -38,7 +38,49 @@ services.factory('GoogleDriveService', function($http, $q) {
         }));
       });
       return delay.promise;
+    },
+    get: function(id) {
+      var delay = $q.defer();
+      $http.get('http://localhost:9200/_river/' + id + '/_meta')
+      .success(function(data, status, headers, config) {
+        delay.resolve(data.source);
+      });
+      return delay.promise;
+    },
+    create: function(river) {
+      var delay = $q.defer();
+      var data = buildData(river);
+      $http.post('http://localhost:9200/_river/' + river.id + '/_meta', data);
+      return delay.promise;
+    },
+    update: function(river) {
+      var delay = $q.defer();
+      var data = buildData(river);
+      $http.put('http://localhost:9200/_river/' + river.id + '/_meta', data);
+      return delay.promise;
+    },
+    delete: function(id) {
+      var delay = $q.defer();
+      $http.delete('http://localhost:9200/_river/' + id + '/_meta')
+      return delay.promise;
     }
+  }
+  
+  function buildData(river){
+    return {
+      type: 'google-drive',
+      'google-drive': {
+        name: river.name,
+        update_rate: parseInt(river.update_rate),
+        includes: river.includes,
+        excludes: river.excludes
+      },
+      'index' :{
+        index: river.index,
+        type: river.type,
+        bulk_size: parseInt(river.bulk_size)
+      }
+    };
   }
   
   return googleService;

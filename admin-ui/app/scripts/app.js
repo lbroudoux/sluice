@@ -21,8 +21,6 @@
 angular
   .module('sluiceApp', [
     'sluiceApp.services',
-    'sluiceApp.aservices',
-    'sluiceApp.gservices',
     'sluiceApp.directives',
     'ngAnimate',
     'ngCookies',

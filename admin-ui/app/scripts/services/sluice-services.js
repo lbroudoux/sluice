@@ -30,6 +30,12 @@ services.factory('DashboardService', function($http, $q) {
         delay.resolve(data);
       });
       return delay.promise;
+    },
+    
+    installRiver: function(river) {
+      var delay = $q.defer();
+      $http.post('http://localhost:9200/_sluice/river/' + river.name + "/1.3.0");
+      return delay.promise;
     }
   };
   return dashService;

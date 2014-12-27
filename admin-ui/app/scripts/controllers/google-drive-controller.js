@@ -19,7 +19,56 @@
 'use strict';
 
 angular.module('sluiceApp')
-  .controller('GoogleDriveController', function ($rootScope, $scope, $modal, rivers) {
+  .controller('GoogleDriveController', function ($rootScope, $scope, $modal, rivers, GoogleDriveService) {
   
   $scope.rivers = rivers;
+  
+  $scope.addRiver = function(river) {
+    river = {update_rate: 1000 * 60 * 10, bulk_size: 2};
+    var modalInstance = show(river, 'edit-google-drive.html');
+    modalInstance.result.then(function(result) {
+      var river = result.river;
+      GoogleDriveService.create(river).then(function(result) {
+        console.log("Creation result: " + result); 
+      });
+    });
+  };
+  
+  $scope.editRiver = function(river) {
+    var modalInstance = show(river, 'edit-google-drive.html');
+    modalInstance.result.then(function(result) {
+      var river = result.river;
+      GoogleDriveService.update(river).then(function(result) {
+        console.log("Update result: " + result); 
+      });
+    });
+  };
+  
+  $scope.removeRiver = function(river) {
+  };
+  
+  function show(river, template) {
+    return $modal.open({
+      templateUrl: 'views/dialogs/' + template,
+      controller: modalController,
+      resolve: {
+        river: function () {
+          return river;
+        }
+      }
+    });
+  }
+  
+  function modalController($scope, $modalInstance, river) {
+    $scope.river = river;
+    $scope.ok = function(river) {
+      $modalInstance.close({
+        river: river
+      });
+    };
+    $scope.cancel = function() {
+      $modalInstance.dismiss('cancel');
+    };
+  }
+  
   });

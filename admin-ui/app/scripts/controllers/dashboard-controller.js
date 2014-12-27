@@ -19,7 +19,12 @@
 'use strict';
 
 angular.module('sluiceApp')
-  .controller('DashboardController', function ($rootScope, $scope, rivers) {
+  .controller('DashboardController', function ($rootScope, $scope, rivers, DashboardService) {
   
   $scope.rivers = rivers;
+  
+  $scope.installRiver = function(river) {
+    DashboardService.installRiver(river);
+  };
+  
   });
