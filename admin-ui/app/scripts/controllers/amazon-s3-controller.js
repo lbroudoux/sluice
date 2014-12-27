@@ -26,9 +26,9 @@ angular.module('sluiceApp')
   $scope.addRiver = function(river) {
     river = {update_rate: 1000 * 60 * 10, bulk_size: 2};
     var modalInstance = show(river, 'edit-amazon-s3.html');
-    modalInstance.result.then(function (result) {
+    modalInstance.result.then(function(result) {
       var river = result.river;
-      AmazonS3Service.create(river).then(function (result) {
+      AmazonS3Service.create(river).then(function(result) {
         console.log("Creation result: " + result); 
       });
     });
@@ -36,9 +36,9 @@ angular.module('sluiceApp')
   
   $scope.editRiver = function(river) {
     var modalInstance = show(river, 'edit-amazon-s3.html');
-    modalInstance.result.then(function (result) {
+    modalInstance.result.then(function(result) {
       var river = result.river;
-      AmazonS3Service.update(river).then(function (result) {
+      AmazonS3Service.update(river).then(function(result) {
         console.log("Update result: " + result); 
       });
     });
@@ -61,12 +61,12 @@ angular.module('sluiceApp')
   
   function modalController($scope, $modalInstance, river) {
     $scope.river = river;
-    $scope.ok = function (river) {
+    $scope.ok = function(river) {
       $modalInstance.close({
         river: river
       });
     };
-    $scope.cancel = function () {
+    $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
     };
   }
