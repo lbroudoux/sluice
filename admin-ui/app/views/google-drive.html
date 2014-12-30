@@ -8,10 +8,17 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4><span class="label label-default">{{river.id}}</span> &nbsp; {{river.name}}</h4>
+            <div class="panel-actions pull-right">
+              <a class="btn" ng-click="editRiver(river)"><i class="glyphicon glyphicon-edit"></i></a>
+            </div>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-6 col-md-2">Elasticsearch mapping: <code>{{ river.index }}/{{ river.type }}</code></div>
+              <div class="col-xs-6 col-md-2">Root folder: <code>{{ river.folder }}</code></div>
+              <div class="col-xs-6 col-md-2">Includes: <code>{{ river.includes }}</code></div>
+              <div class="col-xs-6 col-md-2">Excludes: <code>{{ river.excludes }}</code></div>
+              <div class="col-xs-6 col-md-2">Update rate: <span class="badge alert-info">{{ river.update_rate/1000 }}</span> seconds</div>
             </div>
           </div>
         </div>

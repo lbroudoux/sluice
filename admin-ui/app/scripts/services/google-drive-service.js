@@ -71,6 +71,10 @@ services.factory('GoogleDriveService', function($http, $q) {
       type: 'google-drive',
       'google-drive': {
         name: river.name,
+        clientId: river.clientId,
+        clientSecret: river.clientSecret,
+        refreshToken: river.refreshToken,
+        folder: river.folder,
         update_rate: parseInt(river.update_rate),
         includes: river.includes,
         excludes: river.excludes

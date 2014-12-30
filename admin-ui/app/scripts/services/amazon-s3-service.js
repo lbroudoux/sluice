@@ -52,13 +52,19 @@ services.factory('AmazonS3Service', function($http, $q) {
     create: function(river) {
       var delay = $q.defer();
       var data = buildData(river);
-      $http.post('http://localhost:9200/_river/' + river.id + '/_meta', data);
+      $http.post('http://localhost:9200/_river/' + river.id + '/_meta', data)
+      .success(function(data, status, headers, config) {
+        delay.resolve(river);
+      });
       return delay.promise;
     },
     update: function(river) {
       var delay = $q.defer();
       var data = buildData(river);
-      $http.put('http://localhost:9200/_river/' + river.id + '/_meta', data);
+      $http.put('http://localhost:9200/_river/' + river.id + '/_meta', data)
+      .success(function(data, status, headers, config) {
+        delay.resolve(river);
+      });
       return delay.promise;
     },
     delete: function(id) {

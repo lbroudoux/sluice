@@ -28,7 +28,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ui.bootstrap',
-    'frapontillo.bootstrap-switch'
+    'cgNotify'
   ])
   .config(function ($routeProvider) {
     $routeProvider

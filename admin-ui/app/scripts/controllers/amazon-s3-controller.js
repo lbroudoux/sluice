@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('sluiceApp')
-  .controller('AmazonS3Controller', function ($rootScope, $scope, $modal, rivers, AmazonS3Service) {
+  .controller('AmazonS3Controller', function ($rootScope, $scope, $modal, notify, rivers, AmazonS3Service) {
   
   $scope.rivers = rivers;
   
@@ -29,7 +29,12 @@ angular.module('sluiceApp')
     modalInstance.result.then(function(result) {
       var river = result.river;
       AmazonS3Service.create(river).then(function(result) {
-        console.log("Creation result: " + result); 
+        console.log("Creation result: " + result);
+        notify({
+          message: "River '" + river.name + "' has been created !",
+          classes: 'alert-success'
+        });
+        console.log("After notify");
       });
     });
   };
@@ -39,7 +44,8 @@ angular.module('sluiceApp')
     modalInstance.result.then(function(result) {
       var river = result.river;
       AmazonS3Service.update(river).then(function(result) {
-        console.log("Update result: " + result); 
+        console.log("Update result: " + result);
+        notify("River '" + river.name + "' has been updated !");
       });
     });
   };
@@ -70,6 +76,5 @@ angular.module('sluiceApp')
       $modalInstance.dismiss('cancel');
     };
   }
-  
   
   });
