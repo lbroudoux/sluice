@@ -1,0 +1,115 @@
+<form name="form" class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" ng-click="cancel()">
+      <span class="icon icon-close"></span>
+    </button>
+    <h3 class="modal-title">
+      <i class="fa fa-google"></i> {{ river.id ? 'Edit' : 'Add' }} Google Drive River
+    </h3>
+  </div>
+  <div class="modal-body">
+    <div class="form-horizontal">
+      <fieldset>
+        <legend>Identification</legend>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="id">Id</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. MyDriveDocs" id="id" class="form-control" ng-model="river.id" required>
+          </div>
+          <p class="col-sm-6 help-block">Unique idntifier of your River</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="name">Name</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. My Google Drive feed" id="name" class="form-control" ng-model="river.name" required>
+          </div>
+          <p class="col-sm-6 help-block">Displayable name of your River</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="index">Index</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. s3docs" id="index" class="form-control" ng-model="river.index">
+          </div>
+          <p class="col-sm-6 help-block">The ES index to store your documents</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="type">Type</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. s3doc" id="type" class="form-control" ng-model="river.type">
+          </div>
+          <p class="col-sm-6 help-block">The ES type representing your documents</p>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Content settings</legend>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="folder">Folder</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. Work" id="folder" class="form-control" ng-model="river.folder">
+          </div>
+          <p class="col-sm-6 help-block">Root folder of your Drive to index</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="update_rate">Update rate</label>
+          <div class="col-sm-4">
+            <input type="range" min="1000" max="3600000" step="100" id="update_rate" class="form-control" ng-model="river.update_rate">
+          </div>
+          <p class="col-sm-6 help-block">
+            Update each <span class="badge alert-info">{{ river.update_rate/1000 }}</span> seconds
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="bulk_size">Index bulk size</label>
+          <div class="col-sm-4">
+            <input type="range" min="1" max="100" step="1" defaultValue="2" id="bulk_size" class="form-control" ng-model="river.bulk_size">
+          </div>
+          <p class="col-sm-6 help-block">
+            Index into ES every <span class="badge alert-info">{{ river.bulk_size }}</span> documents
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="includes">Includes</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. *.doc,*.pdf" id="includes" class="form-control" ng-model="river.includes">
+          </div>
+          <p class="col-sm-6 help-block">Patterns to include in index (separated by ,)</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="excludes">Excludes</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. *.mp3,*.avi" id="excludes" class="form-control" ng-model="river.excludes">
+          </div>
+          <p class="col-sm-6 help-block">Patterns to exclude from index (separated by ,)</p>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Authentification</legend>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="clientId">Client id</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. AAAAAAAA" id="clientId" class="form-control" ng-model="river.clientId" required>
+          </div>
+          <p class="col-sm-6 help-block">Your Google client id as found on Google API console</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="clientSecret">Client secret</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. BBBBBBBB" id="clientSecret" class="form-control" ng-model="river.clientSecret" required>
+          </div>
+          <p class="col-sm-6 help-block">Your Google client secret as found on Google API console</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="refreshToken">Refresh token</label>
+          <div class="col-sm-4">
+            <input type="text" placeholder="e.g. BBBBBBBB" id="refreshToken" class="form-control" ng-model="river.refreshToken" required>
+          </div>
+          <p class="col-sm-6 help-block">Your Google client secret as found on Google API console</p>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <input type="button" class="btn btn-default" ng-click="cancel()" value="Cancel" />
+    <input type="submit" class="btn btn-primary" ng-click="ok(river)" ng-disabled="form.$invalid" value="{{river.id ? 'Save' : 'Add'}}" />
+  </div>
+</form>
