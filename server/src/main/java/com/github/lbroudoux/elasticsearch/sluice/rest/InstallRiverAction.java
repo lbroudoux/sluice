@@ -50,7 +50,8 @@ public class InstallRiverAction extends BaseRestHandler{
    public InstallRiverAction(Settings settings, Client client, RestController controller){
       super(settings, client);
 
-      // Define REST endpoint.
+      // Define REST endpoints.
+      controller.registerHandler(Method.POST, "/_sluice/river/{name}", this);
       controller.registerHandler(Method.POST, "/_sluice/river/{name}/{version}", this);
    }
 
@@ -68,7 +69,7 @@ public class InstallRiverAction extends BaseRestHandler{
       River river = SluiceConfig.getRiverConfig(riverName);
       if (river == null){
          // River not in supported list.
-         logger.error("River is not supported by Sluice, returnig a Bad request response.");
+         logger.error("River is not supported by Sluice, returning a Bad request response.");
          channel.sendResponse(new BytesRestResponse(RestStatus.BAD_REQUEST, riverName + " is not supported by Sluice"));
       }
 
