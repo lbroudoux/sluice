@@ -29,12 +29,11 @@ angular.module('sluiceApp')
     modalInstance.result.then(function(result) {
       var river = result.river;
       AmazonS3Service.create(river).then(function(result) {
-        console.log("Creation result: " + result);
+        console.log('Creation result: ' + result);
         notify({
-          message: "River '" + river.name + "' has been created !",
+          message: 'River "' + river.name + '" has been created !',
           classes: 'alert-success'
         });
-        console.log("After notify");
       });
     });
   };
@@ -44,8 +43,8 @@ angular.module('sluiceApp')
     modalInstance.result.then(function(result) {
       var river = result.river;
       AmazonS3Service.update(river).then(function(result) {
-        console.log("Update result: " + result);
-        notify("River '" + river.name + "' has been updated !");
+        console.log('Update result: ' + result);
+        notify('River "' + river.name + '" has been updated !');
       });
     });
   };

@@ -28,10 +28,10 @@ services.factory('AmazonS3Service', function($http, $q) {
       .success(function(data, status, headers, config) {
         delay.resolve(data.hits.hits.map(function(item) {
           //console.log("Item: " + JSON.stringify(item));
-          var river = item._source["amazon-s3"];
+          var river = item._source['amazon-s3'];
           if (item._source.index){
             river.bulk_size = item._source.index.bulk_size;
-            river.index = item._source["index"].index;
+            river.index = item._source.index.index;
             river.type = item._source.index.type;
           }
           river.id = item._type;

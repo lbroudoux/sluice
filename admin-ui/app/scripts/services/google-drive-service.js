@@ -27,10 +27,10 @@ services.factory('GoogleDriveService', function($http, $q) {
       $http.get('http://localhost:9200/_river/_search?q=type:google-drive')
       .success(function(data, status, headers, config) {
         delay.resolve(data.hits.hits.map(function(item) {
-          var river = item._source["google-drive"];
+          var river = item._source['google-drive'];
           if (item._source.index){
             river.bulk_size = item._source.index.bulk_size;
-            river.index = item._source["index"].index;
+            river.index = item._source.index.index;
             river.type = item._source.index.type;
           }
           river.id = item._type;
@@ -50,18 +50,24 @@ services.factory('GoogleDriveService', function($http, $q) {
     create: function(river) {
       var delay = $q.defer();
       var data = buildData(river);
-      $http.post('http://localhost:9200/_river/' + river.id + '/_meta', data);
+      $http.post('http://localhost:9200/_river/' + river.id + '/_meta', data)
+      .success(function(data, status, headers, config) {
+        delay.resolve(river);
+      });
       return delay.promise;
     },
     update: function(river) {
       var delay = $q.defer();
       var data = buildData(river);
-      $http.put('http://localhost:9200/_river/' + river.id + '/_meta', data);
+      $http.put('http://localhost:9200/_river/' + river.id + '/_meta', data)
+      .success(function(data, status, headers, config) {
+        delay.resolve(river);
+      });
       return delay.promise;
     },
     delete: function(id) {
       var delay = $q.defer();
-      $http.delete('http://localhost:9200/_river/' + id + '/_meta')
+      $http.delete('http://localhost:9200/_river/' + id + '/_meta');
       return delay.promise;
     }
   }
