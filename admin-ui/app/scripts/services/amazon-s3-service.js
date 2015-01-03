@@ -25,12 +25,12 @@ services.factory('AmazonS3Service', function($http, $q) {
     list: function() {
       var delay = $q.defer();
       $http.get('http://localhost:9200/_river/_search?q=type:amazon-s3')
-      .success(function(data, status, headers, config) {
+      .success(function(data) {
         delay.resolve(data.hits.hits.map(function(item) {
           //console.log("Item: " + JSON.stringify(item));
           var river = item._source['amazon-s3'];
           if (item._source.index){
-            river.bulk_size = item._source.index.bulk_size;
+            river.bulk_size = item._source.index.bulk_size;   // jshint ignore:line
             river.index = item._source.index.index;
             river.type = item._source.index.type;
           }
@@ -44,7 +44,7 @@ services.factory('AmazonS3Service', function($http, $q) {
     get: function(id) {
       var delay = $q.defer();
       $http.get('http://localhost:9200/_river/' + id + '/_meta')
-      .success(function(data, status, headers, config) {
+      .success(function(data) {
         delay.resolve(data.source);
       });
       return delay.promise;
@@ -53,7 +53,7 @@ services.factory('AmazonS3Service', function($http, $q) {
       var delay = $q.defer();
       var data = buildData(river);
       $http.post('http://localhost:9200/_river/' + river.id + '/_meta', data)
-      .success(function(data, status, headers, config) {
+      .success(function() {
         delay.resolve(river);
       });
       return delay.promise;
@@ -62,17 +62,17 @@ services.factory('AmazonS3Service', function($http, $q) {
       var delay = $q.defer();
       var data = buildData(river);
       $http.put('http://localhost:9200/_river/' + river.id + '/_meta', data)
-      .success(function(data, status, headers, config) {
+      .success(function() {
         delay.resolve(river);
       });
       return delay.promise;
     },
     delete: function(id) {
       var delay = $q.defer();
-      $http.delete('http://localhost:9200/_river/' + id + '/_meta')
+      $http.delete('http://localhost:9200/_river/' + id + '/_meta');
       return delay.promise;
     }
-  }
+  };
   
   function buildData(river){
     return {
@@ -83,14 +83,14 @@ services.factory('AmazonS3Service', function($http, $q) {
         secretKey: river.secretKey,
         bucket: river.bucket,
         pathPrefix: river.pathPrefix,
-        update_rate: parseInt(river.update_rate),
+        update_rate: parseInt(river.update_rate),   // jshint ignore:line
         includes: river.includes,
         excludes: river.excludes
       },
       'index' :{
         index: river.index,
         type: river.type,
-        bulk_size: parseInt(river.bulk_size)
+        bulk_size: parseInt(river.bulk_size)   // jshint ignore:line
       }
     };
   }

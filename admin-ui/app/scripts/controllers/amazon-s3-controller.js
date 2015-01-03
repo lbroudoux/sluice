@@ -24,7 +24,7 @@ angular.module('sluiceApp')
   $scope.rivers = rivers;
   
   $scope.addRiver = function(river) {
-    river = {update_rate: 1000 * 60 * 10, bulk_size: 2};
+    river = {update_rate: 1000 * 60 * 10, bulk_size: 2};   // jshint ignore:line
     var modalInstance = show(river, 'edit-amazon-s3.html');
     modalInstance.result.then(function(result) {
       var river = result.river;
@@ -49,8 +49,10 @@ angular.module('sluiceApp')
     });
   };
   
+  /*
   $scope.removeRiver = function(river) {
   };
+  */
   
   function show(river, template) {
     return $modal.open({

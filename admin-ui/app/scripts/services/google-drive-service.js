@@ -25,11 +25,11 @@ services.factory('GoogleDriveService', function($http, $q) {
     list: function() {
       var delay = $q.defer();
       $http.get('http://localhost:9200/_river/_search?q=type:google-drive')
-      .success(function(data, status, headers, config) {
+      .success(function(data) {
         delay.resolve(data.hits.hits.map(function(item) {
           var river = item._source['google-drive'];
           if (item._source.index){
-            river.bulk_size = item._source.index.bulk_size;
+            river.bulk_size = item._source.index.bulk_size;   // jshint ignore:line
             river.index = item._source.index.index;
             river.type = item._source.index.type;
           }
@@ -42,7 +42,7 @@ services.factory('GoogleDriveService', function($http, $q) {
     get: function(id) {
       var delay = $q.defer();
       $http.get('http://localhost:9200/_river/' + id + '/_meta')
-      .success(function(data, status, headers, config) {
+      .success(function(data) {
         delay.resolve(data.source);
       });
       return delay.promise;
@@ -51,7 +51,7 @@ services.factory('GoogleDriveService', function($http, $q) {
       var delay = $q.defer();
       var data = buildData(river);
       $http.post('http://localhost:9200/_river/' + river.id + '/_meta', data)
-      .success(function(data, status, headers, config) {
+      .success(function() {
         delay.resolve(river);
       });
       return delay.promise;
@@ -60,7 +60,7 @@ services.factory('GoogleDriveService', function($http, $q) {
       var delay = $q.defer();
       var data = buildData(river);
       $http.put('http://localhost:9200/_river/' + river.id + '/_meta', data)
-      .success(function(data, status, headers, config) {
+      .success(function() {
         delay.resolve(river);
       });
       return delay.promise;
@@ -70,7 +70,7 @@ services.factory('GoogleDriveService', function($http, $q) {
       $http.delete('http://localhost:9200/_river/' + id + '/_meta');
       return delay.promise;
     }
-  }
+  };
   
   function buildData(river){
     return {
@@ -81,14 +81,14 @@ services.factory('GoogleDriveService', function($http, $q) {
         clientSecret: river.clientSecret,
         refreshToken: river.refreshToken,
         folder: river.folder,
-        update_rate: parseInt(river.update_rate),
+        update_rate: parseInt(river.update_rate),   // jshint ignore:line
         includes: river.includes,
         excludes: river.excludes
       },
       'index' :{
         index: river.index,
         type: river.type,
-        bulk_size: parseInt(river.bulk_size)
+        bulk_size: parseInt(river.bulk_size)   // jshint ignore:line
       }
     };
   }

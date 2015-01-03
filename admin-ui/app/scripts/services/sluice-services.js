@@ -18,15 +18,15 @@
 */
 'use strict';
 
-var services = angular.module('sluiceApp.services', []).
-  value('version', '0.1');
+var services = angular.module('sluiceApp.services', [])
+  .value('version', '0.1');
 
 services.factory('DashboardService', function($http, $q) {
   var dashService = {
     availableRivers: function() {
       var delay = $q.defer();
       $http.get('http://localhost:9200/_sluice/river')
-      .success(function(data, status, headers, config) {
+      .success(function(data) {
         delay.resolve(data);
       });
       return delay.promise;
@@ -34,7 +34,7 @@ services.factory('DashboardService', function($http, $q) {
     
     installRiver: function(river) {
       var delay = $q.defer();
-      $http.post('http://localhost:9200/_sluice/river/' + river.name + "/1.3.0");
+      $http.post('http://localhost:9200/_sluice/river/' + river.name);
       return delay.promise;
     }
   };
