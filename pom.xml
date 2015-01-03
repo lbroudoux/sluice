@@ -40,8 +40,8 @@
    </issueManagement>
 
    <modules>
-      <module>server</module>
       <module>admin-ui</module>
+      <module>server</module>
    </modules>
 
    <profiles>
