@@ -5,7 +5,7 @@
    <packaging>jar</packaging>
 
    <parent>
-      <artifactId>sluice</artifactId>
+      <artifactId>sluice-parent</artifactId>
       <groupId>com.github.lbroudoux.elasticsearch</groupId>
       <version>0.0.1-SNAPSHOT</version>
    </parent>
