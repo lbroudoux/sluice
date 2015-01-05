@@ -7,7 +7,7 @@
    <parent>
       <artifactId>sluice-parent</artifactId>
       <groupId>com.github.lbroudoux.elasticsearch</groupId>
-      <version>0.0.1</version>
+      <version>0.0.2-SNAPSHOT</version>
    </parent>
 
    <properties>
