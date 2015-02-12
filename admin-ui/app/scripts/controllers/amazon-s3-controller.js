@@ -49,10 +49,14 @@ angular.module('sluiceApp')
     });
   };
   
-  /*
   $scope.removeRiver = function(river) {
+     AmazonS3Service.delete(river.id).then(function(result) {
+       notify({
+          message: 'River "' + river.name + '" has been deleted !',
+          classes: 'alert-danger'
+        });
+     });
   };
-  */
   
   function show(river, template) {
     return $modal.open({

@@ -69,7 +69,17 @@ services.factory('AmazonS3Service', function($http, $q) {
     },
     delete: function(id) {
       var delay = $q.defer();
-      $http.delete('http://localhost:9200/_river/' + id + '/_meta');
+      $http.delete('http://localhost:9200/_river/' + id + '/_meta')
+      .success(function() {
+        $http.delete('http://localhost:9200/_river/' + id + '/_status')
+        .success(function() {
+          delay.resolve(river);
+        })
+        .error(function() {
+          // resolve anyway. maybe river has not been started yet ?
+          delay.resolve(river);
+        });
+      });
       return delay.promise;
     }
   };
