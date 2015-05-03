@@ -34,6 +34,10 @@ angular.module('sluiceApp')
           message: 'River "' + river.name + '" has been created !',
           classes: 'alert-success'
         });
+      }).then(function(result) {
+        GoogleDriveService.list().then(function(result) {
+          $scope.rivers = result;
+        });
       });
     });
   };
@@ -49,10 +53,19 @@ angular.module('sluiceApp')
     });
   };
   
-  /*
   $scope.removeRiver = function(river) {
+    var riverName = river.name;
+    GoogleDriveService.delete(river.id).then(function(result) {
+      notify({
+        message: 'River "' + riverName + '" has been deleted !',
+        classes: 'alert-danger'
+      });
+    }).then(function(resul) {
+      GoogleDriveService.list().then(function(result) {
+        $scope.rivers = result;
+      });
+    });
   };
-  */
   
   function show(river, template) {
     return $modal.open({

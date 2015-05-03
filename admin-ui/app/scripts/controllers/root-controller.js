@@ -26,7 +26,6 @@ angular.module('sluiceApp')
     $rootScope.isProcessingData = function() {
       return $http.pendingRequests.some(function(config) {
         if (config.method !== 'GET') {
-          console.log(config);
           return true;
         }
       });

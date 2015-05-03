@@ -34,6 +34,10 @@ angular.module('sluiceApp')
           message: 'River "' + river.name + '" has been created !',
           classes: 'alert-success'
         });
+      }).then(function(result) {
+        AmazonS3Service.list().then(function(result) {
+          $scope.rivers = result;
+        });
       });
     });
   };
@@ -50,12 +54,17 @@ angular.module('sluiceApp')
   };
   
   $scope.removeRiver = function(river) {
-     AmazonS3Service.delete(river.id).then(function(result) {
-       notify({
-          message: 'River "' + river.name + '" has been deleted !',
-          classes: 'alert-danger'
-        });
-     });
+    var riverName = river.name;
+    AmazonS3Service.delete(river.id).then(function(result) {
+      notify({
+        message: 'River "' + riverName + '" has been deleted !',
+        classes: 'alert-danger'
+      });
+    }).then(function(result) {
+      AmazonS3Service.list().then(function(result) {
+        $scope.rivers = result;
+      });
+    });
   };
   
   function show(river, template) {

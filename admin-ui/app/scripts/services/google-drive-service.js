@@ -67,7 +67,10 @@ services.factory('GoogleDriveService', function($http, $q) {
     },
     delete: function(id) {
       var delay = $q.defer();
-      $http.delete('http://localhost:9200/_river/' + id + '/_meta');
+      $http.delete('http://localhost:9200/_river/' + id, {query: {match_all: {}}})
+      .success(function() {
+        delay.resolve(true);
+      });
       return delay.promise;
     }
   };
